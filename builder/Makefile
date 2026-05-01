@@ -1,4 +1,5 @@
-SRC := $(wildcard ../lib/*.ts ../types/*.ts)
+SRC := $(wildcard ../lib/*.ts)
+TYPES := $(wildcard ../types/*.d.ts)
 BUILDER_SRC := $(wildcard ./*.ts)
 
 PKG_DST := ../dist/package.json
@@ -48,7 +49,7 @@ $(CJS_DST): $(CJS_CONFIG) $(SRC) $(BUILDER_SRC)
 
 # Build, type-check, smoke-check that both bundles expose every named
 # export, and run the node:test suite against the source.
-test: all
+test: all $(TYPES)
 	../node_modules/.bin/tsc --noEmit
 	cd .. && node -e 'const m = require("./dist/express-compress.cjs"); for (const k of "$(NAMED_EXPORTS)".split(" ")) if (typeof m[k] !== "function") { console.error("missing CJS export:", k); process.exit(1); } console.log("CJS smoke OK")'
 	cd .. && node --input-type=module -e 'const m = await import("./dist/express-compress.mjs"); for (const k of "$(NAMED_EXPORTS)".split(" ")) if (typeof m[k] !== "function") { console.error("missing MJS export:", k); process.exit(1); } console.log("MJS smoke OK")'
