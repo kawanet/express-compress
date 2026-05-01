@@ -1,7 +1,7 @@
-// express4.test.ts — Express 4 系の動作確認
+// express4.test.ts — verifies Express 4 behavior.
 //
-// `npm:express@^4` を `express4` alias で読み込み、shared.ts のテストを
-// すべて 4 系で走らせる。
+// Loads `npm:express@^4` via the `express4` alias and runs every shared
+// test against v4.
 
 import {describe} from "node:test";
 import express from "express4";

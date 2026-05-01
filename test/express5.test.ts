@@ -1,8 +1,8 @@
-// express5.test.ts — Express 5 系の動作確認
+// express5.test.ts — verifies Express 5 behavior.
 //
-// `npm:express@^5` を `express5` alias で読み込み、shared.ts のテストを
-// すべて 5 系で走らせる。lib/express-compress.ts は `http.ServerResponse`
-// の標準 API しか触らないので、ソースゼロ touch で 5 系でも通るはず。
+// Loads `npm:express@^5` via the `express5` alias and runs every shared
+// test against v5. `lib/express-compress.ts` only touches the standard
+// `http.ServerResponse` API, so no source changes are required for v5.
 
 import {describe} from "node:test";
 import express from "express5";

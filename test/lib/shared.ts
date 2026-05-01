@@ -1,7 +1,7 @@
-// shared.ts — Express 4/5 共通のテストロジック
+// shared.ts — shared test logic for Express 4 and 5.
 //
-// `express` モジュールを引数で受け取り、4 系・5 系の両方で同じ
-// アサーションを走らせる。各 *.express{4,5}.test.ts から呼び出す。
+// Receives the `express` module as an argument and runs the same set of
+// assertions on both. Invoked by each *.express{4,5}.test.ts entry.
 
 import {strict as assert} from "node:assert";
 import {it} from "node:test";
@@ -12,14 +12,14 @@ import supertest from "supertest";
 
 import {compress, decompress} from "../../lib/express-compress.ts";
 
-// テストごとに使う Express の最低限の型（4/5 共通サブセット）
+// Minimal subset of the Express factory shared by v4 and v5.
 type ExpressFn = {
     (): any;
     Router(): any;
 };
 
 /**
- * binary.test.ts 相当
+ * Equivalent of binary.test.ts.
  */
 export const runBinaryTests = (express: ExpressFn): void => {
     const content = Buffer.from("BINARY");
@@ -44,9 +44,9 @@ export const runBinaryTests = (express: ExpressFn): void => {
     it("binary compression", async () => {
         const app = express().use(compress({contentType: /^application/}), buildRouter());
         const res = await supertest(app).get("/").expect(200);
-        // supertest が自動 decode するため、生の Content-Encoding は header 上にだけ残る
+        // supertest auto-decodes the body, so the raw Content-Encoding only survives on the header.
         assert.ok(res.headers["content-encoding"], "should have content-encoding");
-        // 自動 decode 後は元の content と一致するはず
+        // After auto-decode, the body should match the original content.
         assert.equal(toHEX(res.body), toHEX(content));
     });
 
@@ -59,11 +59,11 @@ export const runBinaryTests = (express: ExpressFn): void => {
 };
 
 /**
- * encoding.test.ts 相当：gzip/deflate/br の3経路をカバー
+ * Equivalent of encoding.test.ts: covers gzip / deflate / br paths.
  *
- * supertest 7 はレスポンスを自動で decode するため、ここでは
- * Content-Encoding ヘッダのみで圧縮成功を確認し、本文は decode 済みの
- * res.text と比較する。
+ * supertest 7 auto-decodes responses, so success of compression is asserted
+ * via the Content-Encoding header, while the body is compared against the
+ * already-decoded `res.text`.
  */
 export const runEncodingTests = (express: ExpressFn): void => {
     testFormat(express, "gzip");
@@ -76,7 +76,7 @@ const testFormat = (express: ExpressFn, format: string): void => {
 
     const buildRouter = () => {
         const router = express.Router();
-        // クライアントから来た accept-encoding を強制的に format に揃える
+        // Force the incoming Accept-Encoding to the format under test.
         router.use(requestHandler().getRequest(req => req.headers["accept-encoding"] = format));
         router.use(requestHandler().getRequest(req => delete req.headers["te"]));
         router.use(compress());
@@ -87,7 +87,7 @@ const testFormat = (express: ExpressFn, format: string): void => {
     it(`content-encoding: ${format} compression`, async () => {
         const app = express().use(buildRouter());
         const res = await supertest(app).get("/").expect(200).expect("content-encoding", format);
-        // supertest が自動 decode するので res.text は元のテキスト
+        // res.text is the auto-decoded text.
         assert.equal(res.text, format);
     });
 
@@ -100,7 +100,7 @@ const testFormat = (express: ExpressFn, format: string): void => {
 };
 
 /**
- * text.test.ts 相当
+ * Equivalent of text.test.ts.
  */
 export const runTextTests = (express: ExpressFn): void => {
     const content = "TEXT";
@@ -131,10 +131,11 @@ export const runTextTests = (express: ExpressFn): void => {
 };
 
 /**
- * synopsis.test.ts 相当：README に載っている SYNOPSIS をそのまま走らせ、
- * br 圧縮された生レスポンスを zlib.brotliDecompressSync で復号できることを確認する。
+ * Equivalent of synopsis.test.ts: runs the README SYNOPSIS as-is and confirms
+ * a brotli-compressed raw response can be decoded with zlib.brotliDecompressSync.
  *
- * supertest は自動 decompress を回避できないため、ここだけ素の http.request を使う。
+ * supertest cannot opt out of auto-decompression, so this case uses raw
+ * http.request instead.
  */
 export const runSynopsisTests = (express: ExpressFn): void => {
     it("SYNOPSIS", async () => {
@@ -151,10 +152,12 @@ export const runSynopsisTests = (express: ExpressFn): void => {
 };
 
 /**
- * compress 適用後に Content-Length が圧縮後サイズに張り直される(≠元のサイズ)ことの確認。
+ * Confirms Content-Length is rewritten to the compressed body length
+ * (≠ the original size) after compress is applied.
  *
- * express-intercept の `_payload.ts` は圧縮後の buffer.length を Content-Length に
- * セットする実装。元の文字列長と異なる値が入ることで、圧縮処理が走ったことを保証する。
+ * express-intercept's `_payload.ts` sets Content-Length to the compressed
+ * buffer length; a value different from the original string length proves
+ * the compression pipeline ran.
  */
 export const runContentLengthTests = (express: ExpressFn): void => {
     it("Content-Length is rewritten to compressed body length", async () => {
@@ -166,9 +169,9 @@ export const runContentLengthTests = (express: ExpressFn): void => {
         const {headers, body} = await rawRequest(app, "/", {"accept-encoding": "gzip"});
         assert.equal(headers["content-encoding"], "gzip");
         const len = headers["content-length"];
-        // 圧縮後の長さは生の bytes 長と一致するはず
+        // Compressed length must equal the raw byte length of the wire body.
         assert.equal(Number(len), body.length, "Content-Length should match compressed body length");
-        // かつ元の文字列長より短い（= 圧縮された）
+        // …and must be shorter than the original (proving compression ran).
         assert.ok(Number(len) < original.length, `expected compressed length < ${original.length}, got ${len}`);
     });
 };
@@ -176,9 +179,9 @@ export const runContentLengthTests = (express: ExpressFn): void => {
 const toHEX = (buf: Buffer): string => Buffer.from(buf).toString("hex");
 
 /**
- * 自動 decompress を回避して生バイトで取得するための簡易 http クライアント。
- * supertest は内部で zlib によって自動 decode してしまうので、Content-Encoding を
- * 検証する系のテストではこれを使う。
+ * Minimal http client that bypasses supertest's automatic decompression so
+ * tests can inspect the raw bytes. supertest decodes via zlib internally,
+ * which would mask the Content-Encoding behavior we want to verify.
  */
 const rawRequest = (app: any, path: string, headers: Record<string, string>): Promise<{
     headers: http.IncomingHttpHeaders;

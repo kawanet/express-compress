@@ -1,6 +1,6 @@
 # express-compress
 
-Express middlewares to compress/decompress response with encoding: brotli, gzip and deflate
+Express middleware to compress and decompress response bodies (brotli, gzip, deflate).
 
 [![Node.js CI](https://github.com/kawanet/express-compress/workflows/Node.js%20CI/badge.svg?branch=master)](https://github.com/kawanet/express-compress/actions/)
 [![npm version](https://badge.fury.io/js/express-compress.svg)](https://www.npmjs.com/package/express-compress)
@@ -24,9 +24,9 @@ app.use((req, res) => res.type("html").send("<html>your content</html>"));
 
 ## METHODS
 
-See TypeScript declaration
+See the TypeScript declaration
 [express-compress.d.ts](https://github.com/kawanet/express-compress/blob/master/types/express-compress.d.ts)
-for more detail.
+for the full API.
 
 ## SEE ALSO
 

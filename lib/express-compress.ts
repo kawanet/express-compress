@@ -8,21 +8,23 @@ type CompressOptions = types.CompressOptions;
 
 type Tester = { test: (str: string) => boolean };
 
-// compress if Content-Type: is a text-like type per default
+// Compress only text-ish Content-Type values by default.
 const textTypes = /^text|json|javascript|svg|xml|utf-8/i;
 
 const contentEncoding = /(^|\W)(br|gzip|deflate)(\W|$)/;
 
-// skip when Content-Length: 0 specified
+// Skip when Content-Length: 0 is set.
 const contentLengthNotZero: Tester = {test: length => length !== "0"};
 
-// compress if statusCode is OK
+// Compress only when the status code is OK.
 const statusCodeOK = /^(200)$/;
 
 /**
- * Returns an RequestHandler to compress the Express.js response stream.
- * It performs compression only for text-ish `Content-Type`s which includes `/^text|json|javascript|svg|xml|utf-8/i` per default.
- * It supports `Accept-Encoding` request header and `Content-Encoding` response header.
+ * Returns a RequestHandler that compresses the Express.js response stream.
+ * By default it compresses only text-ish `Content-Type` values matching
+ * `/^text|json|javascript|svg|xml|utf-8/i`.
+ * It honors the `Accept-Encoding` request header and the `Content-Encoding`
+ * response header.
  */
 
 export const compress: typeof types.compress = options => {
@@ -41,9 +43,11 @@ export const compress: typeof types.compress = options => {
 }
 
 /**
- * Returns an RequestHandler to decompress the Express.js response stream.
- * It performs decompression for any `Content-Type`s if `contentType` parameter is not specified.
- * It supports `Accept-Encoding` request header and `Content-Encoding` response header.
+ * Returns a RequestHandler that decompresses the Express.js response stream.
+ * It decompresses every `Content-Type` when the `contentType` option is not
+ * specified.
+ * It honors the `Accept-Encoding` request header and the `Content-Encoding`
+ * response header.
  */
 
 export const decompress: typeof types.decompress = options => {
