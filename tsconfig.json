@@ -1,22 +1,29 @@
 {
   "include": [
-    "./lib",
-    "./test"
+    "builder/",
+    "lib/",
+    "test/",
+    "types/"
+  ],
+  "exclude": [
+    "node_modules/"
   ],
   "compilerOptions": {
-    "module": "commonjs",
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
     "noImplicitAny": true,
-    "noImplicitReturns": false,
+    "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
-    "removeComments": true,
+    "removeComments": false,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
-    "target": "ES2018",
-    "types": [
-      "mocha",
-      "node"
-    ]
+    "target": "ES2022"
   }
 }

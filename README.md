@@ -5,11 +5,13 @@ Express middlewares to compress/decompress response with encoding: brotli, gzip 
 [![Node.js CI](https://github.com/kawanet/express-compress/workflows/Node.js%20CI/badge.svg?branch=master)](https://github.com/kawanet/express-compress/actions/)
 [![npm version](https://badge.fury.io/js/express-compress.svg)](https://www.npmjs.com/package/express-compress)
 
+Works with Express 4 and 5.
+
 ## SYNOPSIS
 
 ```js
-const express = require("express");
-const {compress, decompress} = require("express-compress");
+import express from "express";
+import {compress, decompress} from "express-compress";
 
 const app = express();
 
@@ -35,7 +37,7 @@ for more detail.
 
 The MIT License (MIT)
 
-Copyright (c) 2020-2022 Yusuke Kawasaki
+Copyright (c) 2020-2026 Yusuke Kawasaki
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
