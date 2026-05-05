@@ -6,9 +6,9 @@ import {requestHandler} from "express-intercept";
 import supertest from "supertest";
 
 import {compress, decompress} from "../../lib/express-compress.ts";
-import type {ExpressFn} from "./util.ts";
+import type {ExpressModule} from "./util.ts";
 
-export const runTextTests = (express: ExpressFn): void => {
+export const runTextTests = (express: ExpressModule): void => {
     const content = "TEXT";
 
     const responseText = () => requestHandler().use((req: any, res: any) => res.type("text/plain").send(content));

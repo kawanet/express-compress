@@ -12,9 +12,9 @@ import * as zlib from "node:zlib";
 
 import {compress, decompress} from "../../lib/express-compress.ts";
 import {rawRequest} from "./util.ts";
-import type {ExpressFn} from "./util.ts";
+import type {ExpressModule} from "./util.ts";
 
-export const runSynopsisTests = (express: ExpressFn): void => {
+export const runSynopsisTests = (express: ExpressModule): void => {
     it("SYNOPSIS", async () => {
         const app = express();
         app.use(compress({contentType: /html/}));

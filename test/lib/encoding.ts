@@ -10,15 +10,15 @@ import {requestHandler} from "express-intercept";
 import supertest from "supertest";
 
 import {compress, decompress} from "../../lib/express-compress.ts";
-import type {ExpressFn} from "./util.ts";
+import type {ExpressModule} from "./util.ts";
 
-export const runEncodingTests = (express: ExpressFn): void => {
+export const runEncodingTests = (express: ExpressModule): void => {
     testFormat(express, "gzip");
     testFormat(express, "deflate");
     testFormat(express, "br");
 };
 
-const testFormat = (express: ExpressFn, format: string): void => {
+const testFormat = (express: ExpressModule, format: string): void => {
     const responseHeader = (key: string) => requestHandler().use((req: any, res: any) => res.type("html").send(req.headers[key] || "-"));
 
     const buildRouter = () => {

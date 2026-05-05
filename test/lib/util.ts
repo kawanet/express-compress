@@ -6,15 +6,12 @@
 
 import * as http from "node:http";
 
-// Express factory shape that includes both the call signature and the
-// namespace methods (`.Router`, `.static`, `.json`, ...) the runners
-// reach for. Express ships as a CommonJS `export = e` namespace, so
-// `typeof import("express4")` resolves to the value of `import express
-// from "express4"` directly (no `.default`). We use the `express4`
-// alias here because that is what this repo installs (top-level
-// `@types/express` is absent — only the `express4` / `express5` npm
-// aliases are wired up).
-export type ExpressFn = typeof import("express4");
+// The full Express module/namespace value: call signature + namespace
+// methods (`.Router`, `.static`, `.json`, ...) the runners reach for.
+// Express ships as a CommonJS `export = e` namespace, so
+// `typeof import("express")` resolves to the value of `import express
+// from "express"` directly (no `.default`).
+export type ExpressModule = typeof import("express");
 
 // Hex helper kept here so binary-style assertions can be written once.
 export const toHEX = (buf: Buffer): string => Buffer.from(buf).toString("hex");

@@ -10,9 +10,9 @@ import supertest from "supertest";
 
 import {compress, decompress} from "../../lib/express-compress.ts";
 import {toHEX} from "./util.ts";
-import type {ExpressFn} from "./util.ts";
+import type {ExpressModule} from "./util.ts";
 
-export const runBinaryTests = (express: ExpressFn): void => {
+export const runBinaryTests = (express: ExpressModule): void => {
     const content = Buffer.from("BINARY");
 
     const responseBinary = () => requestHandler().use((req: any, res: any) => res.type("application/octet-stream").send(content));

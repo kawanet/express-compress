@@ -12,12 +12,12 @@ import {runContentLengthTests} from "./lib/content-length.ts";
 import {runEncodingTests} from "./lib/encoding.ts";
 import {runSynopsisTests} from "./lib/synopsis.ts";
 import {runTextTests} from "./lib/text.ts";
-import type {ExpressFn} from "./lib/util.ts";
+import type {ExpressModule} from "./lib/util.ts";
 
 // Runtime tests cover both Express 4 and 5. Type-level dual coverage
 // is intentionally out of scope, so this cast pins express5 to the
 // Express 4 baseline that the shared runners type-check against.
-const express = express5 as unknown as ExpressFn;
+const express = express5 as unknown as ExpressModule;
 
 describe("express5: binary", () => runBinaryTests(express));
 describe("express5: encoding", () => runEncodingTests(express));
