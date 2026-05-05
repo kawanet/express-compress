@@ -1,7 +1,7 @@
 # express-compress
 
-[![Node.js CI](https://github.com/kawanet/express-compress/workflows/Node.js%20CI/badge.svg?branch=master)](https://github.com/kawanet/express-compress/actions/)
-[![npm version](https://badge.fury.io/js/express-compress.svg)](https://www.npmjs.com/package/express-compress)
+[![Node.js CI](https://github.com/kawanet/express-compress/actions/workflows/nodejs.yml/badge.svg?branch=master)](https://github.com/kawanet/express-compress/actions/)
+[![npm version](https://img.shields.io/npm/v/express-compress)](https://www.npmjs.com/package/express-compress)
 
 Express middleware to compress and decompress response bodies (brotli, gzip, deflate).
 
