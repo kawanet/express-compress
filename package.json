@@ -37,11 +37,9 @@
   },
   "exports": {
     ".": {
+      "types": "./types/express-compress.d.ts",
       "require": "./dist/express-compress.cjs",
-      "import": {
-        "types": "./types/express-compress.d.ts",
-        "default": "./dist/express-compress.mjs"
-      }
+      "import": "./dist/express-compress.mjs"
     }
   },
   "files": [
