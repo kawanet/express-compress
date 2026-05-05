@@ -5,16 +5,22 @@
 // `http.ServerResponse` API, so no source changes are required for v5.
 
 import {describe} from "node:test";
-import express from "express5";
+import express5 from "express5";
 
 import {runBinaryTests} from "./lib/binary.ts";
 import {runContentLengthTests} from "./lib/content-length.ts";
 import {runEncodingTests} from "./lib/encoding.ts";
 import {runSynopsisTests} from "./lib/synopsis.ts";
 import {runTextTests} from "./lib/text.ts";
+import type {ExpressFn} from "./lib/util.ts";
 
-describe("express5: binary", () => runBinaryTests(express as any));
-describe("express5: encoding", () => runEncodingTests(express as any));
-describe("express5: text", () => runTextTests(express as any));
-describe("express5: synopsis", () => runSynopsisTests(express as any));
-describe("express5: content-length", () => runContentLengthTests(express as any));
+// Runtime tests cover both Express 4 and 5. Type-level dual coverage
+// is intentionally out of scope, so this cast pins express5 to the
+// Express 4 baseline that the shared runners type-check against.
+const express = express5 as unknown as ExpressFn;
+
+describe("express5: binary", () => runBinaryTests(express));
+describe("express5: encoding", () => runEncodingTests(express));
+describe("express5: text", () => runTextTests(express));
+describe("express5: synopsis", () => runSynopsisTests(express));
+describe("express5: content-length", () => runContentLengthTests(express));

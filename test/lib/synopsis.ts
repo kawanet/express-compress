@@ -19,7 +19,7 @@ export const runSynopsisTests = (express: ExpressFn): void => {
         const app = express();
         app.use(compress({contentType: /html/}));
         app.use(decompress({contentType: /html/}));
-        app.use((req: any, res: any) => res.type("html").send("<html>your content</html>"));
+        app.use((req, res) => res.type("html").send("<html>your content</html>"));
 
         const {headers, body} = await rawRequest(app, "/", {"accept-encoding": "br"});
         assert.equal(headers["content-encoding"], "br");

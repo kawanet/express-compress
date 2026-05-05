@@ -12,8 +12,8 @@ import {runEncodingTests} from "./lib/encoding.ts";
 import {runSynopsisTests} from "./lib/synopsis.ts";
 import {runTextTests} from "./lib/text.ts";
 
-describe("express4: binary", () => runBinaryTests(express as any));
-describe("express4: encoding", () => runEncodingTests(express as any));
-describe("express4: text", () => runTextTests(express as any));
-describe("express4: synopsis", () => runSynopsisTests(express as any));
-describe("express4: content-length", () => runContentLengthTests(express as any));
+describe("express4: binary", () => runBinaryTests(express));
+describe("express4: encoding", () => runEncodingTests(express));
+describe("express4: text", () => runTextTests(express));
+describe("express4: synopsis", () => runSynopsisTests(express));
+describe("express4: content-length", () => runContentLengthTests(express));

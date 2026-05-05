@@ -19,7 +19,7 @@ export const runContentLengthTests = (express: ExpressFn): void => {
         const original = "hello content-length test repeated text repeated text".repeat(10);
         const app = express();
         app.use(compress());
-        app.use((req: any, res: any) => res.type("text/plain").send(original));
+        app.use((req, res) => res.type("text/plain").send(original));
 
         const {headers, body} = await rawRequest(app, "/", {"accept-encoding": "gzip"});
         assert.equal(headers["content-encoding"], "gzip");
