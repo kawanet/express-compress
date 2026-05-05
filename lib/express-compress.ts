@@ -2,7 +2,7 @@
 
 import {responseHandler} from "express-intercept";
 
-import type * as types from "../types/express-compress.d.ts";
+import type * as types from "express-compress";
 
 type CompressOptions = types.CompressOptions;
 
