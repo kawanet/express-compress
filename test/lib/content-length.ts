@@ -12,14 +12,14 @@ import {it} from "node:test";
 
 import {compress} from "../../lib/express-compress.ts";
 import {rawRequest} from "./util.ts";
-import type {ExpressFn} from "./util.ts";
+import type {ExpressModule} from "./util.ts";
 
-export const runContentLengthTests = (express: ExpressFn): void => {
+export const runContentLengthTests = (express: ExpressModule): void => {
     it("Content-Length is rewritten to compressed body length", async () => {
         const original = "hello content-length test repeated text repeated text".repeat(10);
         const app = express();
         app.use(compress());
-        app.use((req: any, res: any) => res.type("text/plain").send(original));
+        app.use((req, res) => res.type("text/plain").send(original));
 
         const {headers, body} = await rawRequest(app, "/", {"accept-encoding": "gzip"});
         assert.equal(headers["content-encoding"], "gzip");

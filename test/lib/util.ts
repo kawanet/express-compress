@@ -6,11 +6,12 @@
 
 import * as http from "node:http";
 
-// Minimal subset of the Express factory shared by v4 and v5.
-export type ExpressFn = {
-    (): any;
-    Router(): any;
-};
+// The full Express module/namespace value: call signature + namespace
+// methods (`.Router`, `.static`, `.json`, ...) the runners reach for.
+// Express ships as a CommonJS `export = e` namespace, so
+// `typeof import("express")` resolves to the value of `import express
+// from "express"` directly (no `.default`).
+export type ExpressModule = typeof import("express");
 
 // Hex helper kept here so binary-style assertions can be written once.
 export const toHEX = (buf: Buffer): string => Buffer.from(buf).toString("hex");
