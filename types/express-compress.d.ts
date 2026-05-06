@@ -1,6 +1,8 @@
 import type {RequestHandler} from "express";
 
-declare interface CompressOptions {
+export {} // external module indicator
+
+export interface CompressOptions {
     contentLength?: RegExp | { test: (str: string) => boolean };
     contentType?: RegExp | { test: (str: string) => boolean };
     statusCode?: RegExp | { test: (str: string) => boolean };
