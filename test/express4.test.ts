@@ -5,7 +5,6 @@
 
 import express from "express4"
 import {describe} from "node:test"
-
 import {runBinaryTests} from "./lib/binary.ts"
 import {runContentLengthTests} from "./lib/content-length.ts"
 import {runEncodingTests} from "./lib/encoding.ts"

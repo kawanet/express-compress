@@ -9,7 +9,6 @@
 
 import {strict as assert} from "node:assert"
 import {it} from "node:test"
-
 import {compress} from "../../lib/express-compress.ts"
 import type {ExpressModule} from "./util.ts"
 import {rawRequest} from "./util.ts"

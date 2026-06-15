@@ -1,8 +1,7 @@
 // express-compress.ts
 
-import {responseHandler} from "express-intercept"
-
 import type * as types from "express-compress"
+import {responseHandler} from "express-intercept"
 
 type CompressOptions = types.CompressOptions
 

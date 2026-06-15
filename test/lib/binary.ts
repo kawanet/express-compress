@@ -7,7 +7,6 @@ import {requestHandler} from "express-intercept"
 import {strict as assert} from "node:assert"
 import {it} from "node:test"
 import supertest from "supertest"
-
 import {compress, decompress} from "../../lib/express-compress.ts"
 import type {ExpressModule} from "./util.ts"
 import {toHEX} from "./util.ts"
