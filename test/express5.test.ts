@@ -4,8 +4,8 @@
 // test against v5. `lib/express-compress.ts` only touches the standard
 // `http.ServerResponse` API, so no source changes are required for v5.
 
-import {describe} from "node:test"
 import express5 from "express5"
+import {describe} from "node:test"
 
 import {runBinaryTests} from "./lib/binary.ts"
 import {runContentLengthTests} from "./lib/content-length.ts"

@@ -3,14 +3,14 @@
 // Exposes runBinaryTests(express) so each entry point (express4 / express5)
 // can run the same suite against its aliased Express version.
 
+import {requestHandler} from "express-intercept"
 import {strict as assert} from "node:assert"
 import {it} from "node:test"
-import {requestHandler} from "express-intercept"
 import supertest from "supertest"
 
 import {compress, decompress} from "../../lib/express-compress.ts"
-import {toHEX} from "./util.ts"
 import type {ExpressModule} from "./util.ts"
+import {toHEX} from "./util.ts"
 
 export const runBinaryTests = (express: ExpressModule): void => {
     const content = Buffer.from("BINARY")

@@ -4,9 +4,9 @@
 // success of compression is asserted via the Content-Encoding header, while
 // the body is compared against the already-decoded `res.text`.
 
+import {requestHandler} from "express-intercept"
 import {strict as assert} from "node:assert"
 import {it} from "node:test"
-import {requestHandler} from "express-intercept"
 import supertest from "supertest"
 
 import {compress, decompress} from "../../lib/express-compress.ts"

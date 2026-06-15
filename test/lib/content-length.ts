@@ -11,8 +11,8 @@ import {strict as assert} from "node:assert"
 import {it} from "node:test"
 
 import {compress} from "../../lib/express-compress.ts"
-import {rawRequest} from "./util.ts"
 import type {ExpressModule} from "./util.ts"
+import {rawRequest} from "./util.ts"
 
 export const runContentLengthTests = (express: ExpressModule): void => {
     it("Content-Length is rewritten to compressed body length", async () => {

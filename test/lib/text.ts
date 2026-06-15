@@ -1,8 +1,8 @@
 // text.ts — equivalent of master's test/text.test.ts.
 
+import {requestHandler} from "express-intercept"
 import {strict as assert} from "node:assert"
 import {it} from "node:test"
-import {requestHandler} from "express-intercept"
 import supertest from "supertest"
 
 import {compress, decompress} from "../../lib/express-compress.ts"
