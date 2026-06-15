@@ -1,11 +1,11 @@
-import type {RequestHandler} from "express";
+import type {RequestHandler} from "express"
 
 export {} // external module indicator
 
 export interface CompressOptions {
-    contentLength?: RegExp | { test: (str: string) => boolean };
-    contentType?: RegExp | { test: (str: string) => boolean };
-    statusCode?: RegExp | { test: (str: string) => boolean };
+    contentLength?: RegExp | {test: (str: string) => boolean}
+    contentType?: RegExp | {test: (str: string) => boolean}
+    statusCode?: RegExp | {test: (str: string) => boolean}
 }
 
 /**
@@ -15,7 +15,7 @@ export interface CompressOptions {
  * It honors the `Accept-Encoding` request header and the `Content-Encoding`
  * response header.
  */
-export declare const compress: (options?: CompressOptions) => RequestHandler;
+export declare const compress: (options?: CompressOptions) => RequestHandler
 
 /**
  * Returns a RequestHandler that decompresses the Express.js response stream.
@@ -24,4 +24,4 @@ export declare const compress: (options?: CompressOptions) => RequestHandler;
  * It honors the `Accept-Encoding` request header and the `Content-Encoding`
  * response header.
  */
-export declare const decompress: (options?: CompressOptions) => RequestHandler;
+export declare const decompress: (options?: CompressOptions) => RequestHandler

@@ -1,23 +1,22 @@
 // express-compress.ts
 
-import {responseHandler} from "express-intercept";
+import type * as types from "express-compress"
+import {responseHandler} from "express-intercept"
 
-import type * as types from "express-compress";
+type CompressOptions = types.CompressOptions
 
-type CompressOptions = types.CompressOptions;
-
-type Tester = { test: (str: string) => boolean };
+type Tester = {test: (str: string) => boolean}
 
 // Compress only text-ish Content-Type values by default.
-const textTypes = /^text|json|javascript|svg|xml|utf-8/i;
+const textTypes = /^text|json|javascript|svg|xml|utf-8/i
 
-const contentEncoding = /(^|\W)(br|gzip|deflate)(\W|$)/;
+const contentEncoding = /(^|\W)(br|gzip|deflate)(\W|$)/
 
 // Skip when Content-Length: 0 is set.
-const contentLengthNotZero: Tester = {test: length => length !== "0"};
+const contentLengthNotZero: Tester = {test: length => length !== "0"}
 
 // Compress only when the status code is OK.
-const statusCodeOK = /^(200)$/;
+const statusCodeOK = /^(200)$/
 
 /**
  * Returns a RequestHandler that compresses the Express.js response stream.
@@ -28,18 +27,18 @@ const statusCodeOK = /^(200)$/;
  */
 
 export const compress: typeof types.compress = options => {
-    let {contentLength, contentType, statusCode} = options || {} as CompressOptions;
+    let {contentLength, contentType, statusCode} = options || {} as CompressOptions
 
-    if (!contentLength) contentLength = contentLengthNotZero;
-    if (!contentType) contentType = textTypes;
-    if (!statusCode) statusCode = statusCodeOK;
+    if (!contentLength) contentLength = contentLengthNotZero
+    if (!contentType) contentType = textTypes
+    if (!statusCode) statusCode = statusCodeOK
 
     return responseHandler()
         .if(res => !statusCode || statusCode.test(String(res.statusCode)))
         .if(res => !contentLength || contentLength.test(String(res.getHeader("content-length"))))
         .if(res => !contentType || contentType.test(String(res.getHeader("content-type"))))
         .if(res => !contentEncoding.test(String(res.getHeader("content-encoding"))))
-        .compressResponse();
+        .compressResponse()
 }
 
 /**
@@ -51,12 +50,12 @@ export const compress: typeof types.compress = options => {
  */
 
 export const decompress: typeof types.decompress = options => {
-    let {contentLength, contentType, statusCode} = options || {} as CompressOptions;
+    let {contentLength, contentType, statusCode} = options || {} as CompressOptions
 
     return responseHandler()
         .if(res => !statusCode || statusCode.test(String(res.statusCode)))
         .if(res => !contentLength || contentLength.test(String(res.getHeader("content-length"))))
         .if(res => !contentType || contentType.test(String(res.getHeader("content-type"))))
         .if(res => contentEncoding.test(String(res.getHeader("content-encoding"))))
-        .decompressResponse();
+        .decompressResponse()
 }
