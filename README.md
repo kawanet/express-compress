@@ -1,6 +1,6 @@
 # express-compress
 
-[![Node.js CI](https://github.com/kawanet/express-compress/actions/workflows/nodejs.yml/badge.svg?branch=master)](https://github.com/kawanet/express-compress/actions/)
+[![Node.js CI](https://github.com/kawanet/express-compress/actions/workflows/nodejs.yml/badge.svg?branch=main)](https://github.com/kawanet/express-compress/actions/)
 [![npm version](https://img.shields.io/npm/v/express-compress)](https://www.npmjs.com/package/express-compress)
 
 Express middleware to compress and decompress response bodies (brotli, gzip, deflate).
@@ -25,7 +25,7 @@ app.use((req, res) => res.type("html").send("<html>your content</html>"));
 ## METHODS
 
 See the TypeScript declaration
-[express-compress.d.ts](https://github.com/kawanet/express-compress/blob/master/types/express-compress.d.ts)
+[express-compress.d.ts](https://github.com/kawanet/express-compress/blob/main/types/express-compress.d.ts)
 for the full API.
 
 ## SEE ALSO

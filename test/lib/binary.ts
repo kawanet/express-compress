@@ -1,5 +1,3 @@
-// binary.ts — equivalent of master's test/binary.test.ts.
-//
 // Exposes runBinaryTests(express) so each entry point (express4 / express5)
 // can run the same suite against its aliased Express version.
 
