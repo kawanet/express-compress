@@ -1,5 +1,3 @@
-// synopsis.ts — equivalent of master's test/synopsis.test.ts.
-//
 // Runs the README SYNOPSIS as-is and confirms a brotli-compressed raw
 // response can be decoded with zlib.brotliDecompressSync.
 //

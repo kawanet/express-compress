@@ -1,5 +1,3 @@
-// content-length.ts — new topic added on top of master's four files.
-//
 // Confirms Content-Length is rewritten to the compressed body length
 // (≠ the original size) after compress is applied.
 //

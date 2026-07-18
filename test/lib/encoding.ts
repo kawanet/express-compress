@@ -1,5 +1,3 @@
-// encoding.ts — equivalent of master's test/encoding.test.ts.
-//
 // Covers gzip / deflate / br paths. supertest 7 auto-decodes responses, so
 // success of compression is asserted via the Content-Encoding header, while
 // the body is compared against the already-decoded `res.text`.
