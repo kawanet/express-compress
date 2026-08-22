@@ -1,7 +1,7 @@
 {
   "name": "express-compress",
   "description": "Express middlewares to compress/decompress response with encoding: brotli, gzip and deflate",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "author": "Yusuke Kawasaki <u-suke@kawa.net>",
   "bugs": {
     "url": "https://github.com/kawanet/express-compress/issues"
